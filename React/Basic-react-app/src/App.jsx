@@ -12,7 +12,7 @@ function App  ()  {
     <Footer year={2026} company={'kiet'} obj = {obj}/>
 
     <card>
-      <h1>Product:</h1>
+      <h1>Product</h1>
       <p>Description: </p>
       <p>Price: </p>
     </card>
