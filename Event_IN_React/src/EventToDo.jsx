@@ -45,61 +45,58 @@ import { useState } from 'react';
 
 // export default EventToDo;
 
+
 import './EventToDo.css'
+function EventToDo() {
+    
 
-const EventToDo = () => {
+    const[task,setTask]=useState("");
+    const[tasks,setTasks]=useState([]);
+  
+    function handleSubmit(e){
+        e.preventDefault();
+        const input = e.target.todo.value;
+        const taskValue = input.trim();
+        if(taskValue===""){
+            alert("Can not add empty task");
+            return;
+       
+          }
+          setTasks((prevTasks) => [...prevTasks,taskValue])
+          setTask("");
+      }
 
-    // function handleSubmit(e){
-    //     e.preventDefault();
-    //     const input = e.target.task.value;
-    //     const taskValue = input.trim();
-
-    //     if(taskValue===""){
-    //         alert("Can not add Empty task");
-    //         return ;
-    //     }
-    //     const li = document.createElement("li");
-    //     li.innerHTML = `<span class="Eventli">${taskValue}</span> &nbsp;&nbsp;&nbsp;
-    //     <button class='deleteBtn'>Delete</button>`;
-
-    //     document.getElementById("taskList").appendChild(li);
-    //     input.value = ''; 
-    // }
-
-    //  function handleListClick(e){
-    //     if(e.target.className==='deleteBtn'){
-    //         e.target.parentElement.remove();
-    //     }
-
-    // }
-
-    const [task , setTask] =useState("");
-    const [tasks, setTasks] = useState([]);
+      function handleDelete(index){
+        setTasks((prevTasks)=>
+        prevTasks.filter((_,i)=>i!==index))
+      }
 
 
 
   return (
-    <div className="EventToDo">
-        <h1>To Do List</h1>
-       <form  onSubmit={handleSubmit}>
-        <input type="text" placeholder='Enter Task' value={task} onChange={(e)=>setTask(e.target.value)}/>
-        <br/><br />
-        <button style={{backgroundColor:"fountain"}} type="submit">Add Task</button>
-       </form>
-       <hr />
-        <ul>
-            {
-                tasks.map((item,index)=>{
-                    <li key={index}>
-                        <span>{item}</span>
-                    </li>
-                })
-            }
-            
-        </ul>
+
+    <div className='EventToDo'>
+    <h1 className='h1tag'>To do App</h1>
+      <form action="submit" onSubmit={(e)=>{handleSubmit(e)}}>
+      <input className='inputTask' type="text" name="todo" placeholder='Enter your task'
+      value={task}
+      onChange={(e)=>setTask(e.target.value)}/>
+      <br /><br />
+      <button className='Addbtn'>Add Task</button>
+      </form>
+      <hr />
+      <ul>
+        {
+          tasks.map((item,index)=>(
+            <li className='eachTask' key={index}>
+              <span>{item}</span>
+              <button className='deletebtn' onClick={()=>handleDelete(index)}>Delete</button>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   )
 }
 
-export default EventToDo;
-
+export default EventToDo
